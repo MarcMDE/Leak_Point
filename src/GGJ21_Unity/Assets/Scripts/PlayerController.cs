@@ -4,29 +4,35 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float movX;
-    float movZ;
-    //rotación en el eje vertical (el FPC sólo va a rotar sobre este eje)
-    float rotY;
-    Vector3 mov;
-    //las velocidades de movimiento y rotación
-    public float vel = 8.0f;
-    public float velRot = 180.0f;
-
-    // Use this for initialization
+    [SerializeField] Rigidbody rb;
+    private bool moving = false;
+    [SerializeField] float thrust = 1.0f;
+    
+    
+    // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        rotY = Input.GetAxis("Mouse X") * velRot * Time.deltaTime;
-        transform.Rotate(0, rotY, 0);
-        movX = Input.GetAxisRaw("Horizontal") * vel * Time.deltaTime;
-        movZ = Input.GetAxisRaw("Vertical") * vel * Time.deltaTime;
-        mov = new Vector3(movX, 0.0f, movZ);
-        transform.Translate(mov);
+        if (Input.GetKeyUp("space") && rb.velocity == Vector3.zero)
+        {
+            rb.AddForce(Camera.main.transform.forward * thrust);
+            //moving = true;
+        }
+        
+        //if (rb.velocity == 0)
+    }
+
+    private void OnCollisionStay(Collision collision){
+        if (Input.GetKey("space")){
+            rb.velocity = Vector3.zero;
+            //moving = false;
+        }
+
     }
 }
