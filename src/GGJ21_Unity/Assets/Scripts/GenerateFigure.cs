@@ -41,7 +41,7 @@ public class GenerateFigure : MonoBehaviour
                         Vector3 vPos = new Vector3(x / (float)size, y / (float)size, z);
                         Vector3 wPos = camera.ViewportToWorldPoint(vPos);
                         GameObject c = Instantiate<GameObject>(prefab, wPos, Quaternion.identity, parent);
-                        float scale = Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) * z * 2 * 0.1f;
+                        float scale = Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) * z * 2 * 0.05f;
                         c.transform.localScale = Vector3.one * scale;
 
                         Vector3 target = new Vector3(0, wPos.y, 0);
@@ -51,9 +51,9 @@ public class GenerateFigure : MonoBehaviour
                 }
             }
         }
-        Vector3 cbPos = camera.ViewportToWorldPoint(new Vector3(0.5f,0.5f,-5));
+        Vector3 cbPos = new Vector3(camera.transform.position.x, camera.transform.position.y - 0.5f, camera.transform.position.z);//camera.ViewportToWorldPoint(new Vector3(0.5f,0.5f,-5));
         GameObject cb = Instantiate<GameObject>(prefab, cbPos, Quaternion.identity, parent);
-        cb.transform.localScale = Vector3.one * 10;
+        //cb.transform.localScale = Vector3.one;
         Vector3 target2 = new Vector3(0, cbPos.y, 0);
         cb.transform.LookAt(target2);
 
