@@ -7,27 +7,49 @@ public class GenerateFigure : MonoBehaviour
     [SerializeField] Camera camera;
     [SerializeField] int layers;
     [SerializeField] GameObject prefab;
+    [SerializeField] Transform grandParent;
+    [SerializeField] Figure figure;
+
+    GameMaster gameMaster;
 
     Transform parent;
 
-    const int size = 9;
+    const int size = 20;
 
 
-    bool[,] h = new bool [,]{   {false,false,false,false,false,false,false,false,false},
-                                {false,false,true,false,false,false,true,false,false},
-                                {false,false,true,false,false,false,true,false,false},
-                                {false,false,true,false,false,false,true,false,false},
-                                {false,false,true,true,true,true,true,false,false},
-                                {false,false,true,false,false,false,true,false,false},
-                                {false,false,true,false,false,false,true,false,false},
-                                {false,false,true,false,false,false,true,false,false},
-                                {false,false,false,false,false,false,false,false,false}};
+    bool[,] h = new bool [,]{   {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,true,true,false,false,false,false,false,true,true,false,false,false,false,false,true,true,false,false},
+                                {false,false,false,true,true,false,false,false,false,true,true,false,false,false,false,true,true,false,false,false},
+                                {false,false,false,false,true,true,false,false,false,true,true,false,false,false,true,true,false,false,false,false},
+                                {false,false,false,false,false,true,true,true,false,true,true,false,true,true,true,false,false,false,false,false},
+                                {false,false,false,false,false,false,true,true,true,true,true,true,true,true,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,true,true,true,true,true,true,true,true,false,false,false,false,false,false},
+                                {false,false,false,false,false,true,true,true,false,true,true,false,true,true,true,false,false,false,false,false},
+                                {false,false,false,false,true,true,false,false,false,true,true,false,false,false,true,true,false,false,false,false},
+                                {false,false,false,true,true,false,false,false,false,true,true,false,false,false,false,true,true,false,false,false},
+                                {false,false,true,true,false,false,false,false,false,true,true,false,false,false,false,false,true,true,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+                            };
 
 
 
     void Start()
     {
-        parent = new GameObject("Figure").transform;
+       gameMaster = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+    }
+    public void Generate()
+    {
+        parent = new GameObject("parent").transform;
+        parent.transform.parent = grandParent;
+        float AR = 1/camera.aspect;
 
         for (int y = 0; y < size; y++)
         {
@@ -38,29 +60,33 @@ public class GenerateFigure : MonoBehaviour
                     for (int i = 0; i < layers; i++)
                     {
                         float z = Random.Range(30, 125);
-                        Vector3 vPos = new Vector3(x / (float)size, y / (float)size, z);
+                        Vector3 vPos = new Vector3((1-AR)/2 + AR*( x / (float)size), y / (float)size, z);
                         Vector3 wPos = camera.ViewportToWorldPoint(vPos);
                         GameObject c = Instantiate<GameObject>(prefab, wPos, Quaternion.identity, parent);
-                        float scale = Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) * z * 2 * 0.05f;
+                        float scale = Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) * z * 2 * 1f/size;
                         c.transform.localScale = Vector3.one * scale;
 
-                        Vector3 target = new Vector3(0, wPos.y, 0);
-                        c.transform.LookAt(target);
+                        Vector3 target = new Vector3(0, 0, 0);
+                        c.transform.LookAt(camera.transform);
 
                     }
                 }
             }
         }
-        Vector3 cbPos = new Vector3(camera.transform.position.x, camera.transform.position.y - 0.5f, camera.transform.position.z);//camera.ViewportToWorldPoint(new Vector3(0.5f,0.5f,-5));
+        /*
+        Vector3 cbPos = new Vector3(camera.transform.position.x, camera.transform.position.y - 1f, camera.transform.position.z);//camera.ViewportToWorldPoint(new Vector3(0.5f,0.5f,-5));
         GameObject cb = Instantiate<GameObject>(prefab, cbPos, Quaternion.identity, parent);
         //cb.transform.localScale = Vector3.one;
         Vector3 target2 = new Vector3(0, cbPos.y, 0);
         cb.transform.LookAt(target2);
-
-        //Destroy(camera);
+        gameMaster.SetTargetPos(figure, camera.transform.position);
+        */
     }
-
-
+    public void Delete()
+    {
+        if (parent != null)
+            DestroyImmediate(parent.gameObject);
+    }
     void Update()
     {
         

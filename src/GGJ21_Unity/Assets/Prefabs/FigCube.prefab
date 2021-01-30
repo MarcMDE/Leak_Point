@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5182512148881251909}
   - component: {fileID: 8095282755732275383}
   - component: {fileID: 7911632846030018950}
+  - component: {fileID: 1240108453201982981}
   m_Layer: 0
   m_Name: FigCube
-  m_TagString: Untagged
+  m_TagString: FigCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,3 +94,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1240108453201982981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3637053417789574007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9346710c8f2b0e346a64d39a0eebac27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationDuration: 3
