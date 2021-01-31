@@ -5,7 +5,7 @@ using UnityEngine;
 public class CubeController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] float rotationDuration;
+    /*[SerializeField] float rotationDuration;
     private bool staticState = false;
     bool rotateToTarget = false;
     float count;
@@ -18,12 +18,12 @@ public class CubeController : MonoBehaviour
         rotation = new Vector3(Random.Range( -20, 20 ), Random.Range( -20, 20 ), Random.Range( -20, 20 ));
         transform.Rotate(rotation);
         count = 0f;
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
     {
-        if( !staticState ){
+        /*if( !staticState ){
             transform.Rotate(rotation*Time.deltaTime);
         }
         else if(rotateToTarget)
@@ -37,13 +37,13 @@ public class CubeController : MonoBehaviour
             {
                 rotateToTarget = false;
             }
-        }
+        }*/
     } 
 
-    public void RotateToTarget()
+    /*public void RotateToTarget()
     {
         rotateToTarget = true;
         sourceRotation = transform.rotation;
         staticState = true;
-    }
+    }*/
 }

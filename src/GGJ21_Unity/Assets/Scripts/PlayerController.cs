@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] float impulseGroth;
     [SerializeField] float maxImpulseTime;
+
+    [SerializeField] GameObject[] pointerObj;
+
+    //[SerializeField]
     bool isGrounded;
     bool grabed;
     bool loading;
@@ -21,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     //Rigidbody rb;
     CharacterController controller;
+
+    private float grabDisabled = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -62,12 +68,15 @@ public class PlayerController : MonoBehaviour
 
     private void GrabCube(Transform t)
     {
-        //rb.velocity = Vector3.zero;
-        transform.parent = t;
-        grabed = true;
-        velocity = Vector3.zero;
-        move = Vector3.zero;
-        //rb.useGravity = false;
+        if(grabDisabled == 0){
+             //rb.velocity = Vector3.zero;
+            transform.parent = t;
+            grabed = true;
+            velocity = Vector3.zero;
+            move = Vector3.zero;
+            //rb.useGravity = false;
+        }
+       
     }
 
     private void DropCube()
@@ -102,23 +111,77 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        var timeSegment = 0.5f/3;//maxImpulseTime-0.5f/(pointerObj.Length - 2f);
+
+        if(grabDisabled > 0){
+            grabDisabled -= Time.deltaTime;
+            
+        }
+        if(grabDisabled < 0){
+            grabDisabled = 0;
+        }
+            
+            
         if (isGrounded || grabed)
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                if (impulseCounter < maxImpulseTime)
+                if (impulseCounter < maxImpulseTime){
                     impulseCounter += Time.deltaTime;
-                else
+                }else{
                     impulseCounter = maxImpulseTime;
+                    pointerObj[0].SetActive(false);
+                    pointerObj[1].SetActive(false);
+                    pointerObj[2].SetActive(false);
+                    pointerObj[3].SetActive(false);
+                    pointerObj[4].SetActive(true);
+                    Debug.Log("LOADING!");
+                }
+                    
                 
                 loading = true;
                 //Debug.Log("LOADING!");
+
+
+                if (impulseCounter >= 0.5f){
+                    if (impulseCounter >= 0.5f + timeSegment){
+                        if (impulseCounter >= 0.5f + 2*timeSegment){
+                            if (impulseCounter < maxImpulseTime){
+
+                            
+                                pointerObj[0].SetActive(false);
+                                pointerObj[1].SetActive(false);
+                                pointerObj[2].SetActive(false);
+                                pointerObj[3].SetActive(true);
+                                pointerObj[4].SetActive(false);
+                            }
+
+                        }else{
+                            pointerObj[0].SetActive(false);
+                            pointerObj[1].SetActive(false);
+                            pointerObj[2].SetActive(true);
+                            pointerObj[3].SetActive(false);
+                            pointerObj[4].SetActive(false);
+                        }
+                    }else{
+                        pointerObj[0].SetActive(false);
+                        pointerObj[1].SetActive(true);
+                        pointerObj[2].SetActive(false);
+                        pointerObj[3].SetActive(false);
+                        pointerObj[4].SetActive(false);
+                    }
+                }
+                
+                    
+
+
+                    
             }
             
             if(Input.GetKeyUp(KeyCode.Space))
             {
                 Debug.Log("KEY UP!");
-                if (impulseCounter < 1f && isGrounded)
+                if (impulseCounter < 0.5f && isGrounded)
                 {
                     velocity = Vector3.up * jumpThrust + move;
 
@@ -130,8 +193,16 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (impulseCounter >= 0.5f)
                 {
+                    
                     velocity = Camera.main.transform.forward * impulseCounter * impulseThrust;
                     Debug.Log("IMPULSE!");
+                    
+                    pointerObj[0].SetActive(true);
+                    pointerObj[1].SetActive(false);
+                    pointerObj[2].SetActive(false);
+                    pointerObj[3].SetActive(false);
+                    pointerObj[4].SetActive(false);
+                    grabDisabled = 0.25f;
                     grabed = false;
                 }
             }
