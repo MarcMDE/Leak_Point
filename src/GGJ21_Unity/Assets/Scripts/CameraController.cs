@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     {
         mouseSensitivity = 800f;
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

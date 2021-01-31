@@ -7,7 +7,10 @@ using UnityEngine.UI;
 public class MenuControls : MonoBehaviour
 {
     [SerializeField] GameObject credits;
-
+    void Start(){
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
     public void ShowCredits()
     {
         credits.SetActive(true);
