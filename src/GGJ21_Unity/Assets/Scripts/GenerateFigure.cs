@@ -9,6 +9,8 @@ public class GenerateFigure : MonoBehaviour
     [SerializeField] GameObject prefab;
     [SerializeField] Transform grandParent;
     [SerializeField] Figure figure;
+    [SerializeField] float minDistance;
+    [SerializeField] float maxDistance;
 
     GameMaster gameMaster;
 
@@ -17,7 +19,7 @@ public class GenerateFigure : MonoBehaviour
     const int size = 20;
 
 
-    bool[,] h = new bool [,]{   {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+    bool[,] h = new bool [,]{   /*{false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
                                 {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
                                 {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
                                 {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
@@ -34,10 +36,140 @@ public class GenerateFigure : MonoBehaviour
                                 {false,false,true,true,false,false,false,false,false,true,true,false,false,false,false,false,true,true,false,false},
                                 {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
                                 {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false}*/
+                                
+                                /*
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,true,true,true,true,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,true,true,false,false,false,false,true,true,false,false,false,false,false,false},
+                                {false,false,false,false,true,true,false,false,false,false,false,false,false,false,true,true,false,false,false,false},
+                                {false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false},
+                                {false,false,true,false,false,false,false,true,true,true,true,true,false,true,false,false,true,false,false,false},
+                                {false,false,true,false,false,false,true,true,false,false,false,true,true,true,false,false,true,false,false,false},
+                                {false,false,true,false,false,false,true,false,false,false,false,false,false,true,false,true,true,false,false,false},
+                                {false,false,true,false,false,false,true,false,false,false,false,false,false,true,true,true,true,false,false,false},
+                                {false,false,true,false,false,false,true,false,false,false,false,false,false,true,true,false,false,false,false,false},
+                                {false,false,true,false,false,false,true,false,false,false,false,false,false,true,true,false,false,false,false,false},
+                                {false,false,true,false,false,false,true,true,false,false,false,false,true,true,false,false,false,false,false,false},
+                                {false,false,true,false,false,false,false,true,true,true,true,true,true,false,false,false,true,false,false,false},
+                                {false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false},
+                                {false,false,false,false,true,true,false,false,false,false,false,false,false,false,true,true,false,false,false,false},
+                                {false,false,false,false,false,false,true,true,false,false,false,false,true,true,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,true,true,true,true,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false}
+                                */
+                                /*
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+                                {false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false},
+                                {false,false,true,true,false,false,false,false,false,false,false,false,false,false,false,false,true,true,false,false},
+                                {false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false},
+                                {false,false,false,true,true,false,false,false,false,false,false,false,false,false,false,true,true,false,false,false},
+                                {false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false},
+                                {false,false,false,false,true,true,false,false,false,false,false,false,false,false,true,true,false,false,false,false},
+                                {false,false,false,false,false,true,false,false,false,false,false,false,false,false,true,false,false,false,false,false},
+                                {false,false,false,false,false,true,true,false,false,false,false,false,false,true,true,false,false,false,false,false},
+                                {false,false,false,false,false,false,true,false,false,false,false,false,false,true,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,true,true,false,false,false,false,true,true,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,true,false,false,false,false,true,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,true,true,false,false,true,true,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,true,false,false,true,false,false,false,false,false,false,false,false},
+                                {false,false,false,false,false,false,false,false,true,true,true,true,false,false,false,false,false,false,false,false},
                                 {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
                                 {false,false,false,false,false,false,false,false,false,true,true,false,false,false,false,false,false,false,false,false},
                                 {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
-                            };
+                                {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false}
+*/
+                               /* {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, true, true, true, true, true, false, false, false, false, false, false, true, true, true, true, true, false, false},
+                                {false, true, true, true, true, true, true, false, false, false, false, false, true, true, true, true, true, true, true, false},
+                                {false, true, true, false, false, false, true, true, false, false, false, false, true, true, false, false, false, false, true, false},
+                                {false, true, false, false, false, false, false, true, false, false, false, true, true, false, false, false, false, false, true, false},
+                                {true, true, false, false, false, false, false, true, true, false, false, true, true, false, false, false, false, false, true, true},
+                                {true, true, false, false, false, false, false, true, true, false, false, true, false, false, false, false, false, false, true, true},
+                                {true, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, true},
+                                {true, true, false, false, false, false, false, true, true, false, false, true, true, false, false, false, false, false, true, true},
+                                {false, true, true, false, false, false, true, true, true, false, false, true, true, true, false, false, false, true, true, false},
+                                {false, true, true, false, false, false, true, true, false, false, false, false, true, true, false, false, false, true, true, false},
+                                {false, false, true, true, true, true, true, true, false, false, false, false, true, true, true, true, true, true, true, false},
+                                {false, false, true, true, true, true, true, false, false, false, false, false, false, true, true, true, true, true, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}
+*/
+                               /* {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, true, true, true, true, true, false, false, false, false, false, false, true, true, true, true, true, false, false},
+                                {false, true, true, true, true, true, true, false, false, false, false, false, true, true, true, true, true, true, true, false},
+                                {false, true, true, false, false, false, true, true, false, false, false, false, true, true, false, false, false, false, true, false},
+                                {false, true, false, false, false, false, false, true, false, false, false, true, true, false, false, false, false, false, true, false},
+                                {true, true, false, false, false, false, false, true, true, false, false, true, true, false, false, false, false, false, true, true},
+                                {true, true, false, false, false, false, false, true, true, false, false, true, false, false, false, false, false, false, true, true},
+                                {true, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, false, true, true, true, true, false, false, false, false, false, false, false, true},
+                                {true, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, false, true},
+                                {true, true, false, false, false, false, false, true, true, false, false, true, true, false, false, false, false, false, true, true},
+                                {false, true, true, false, false, false, true, true, true, false, false, true, true, true, false, false, false, true, true, false},
+                                {false, true, true, false, false, false, true, true, false, false, false, false, true, true, false, false, false, true, true, false},
+                                {false, false, true, true, true, true, true, true, false, false, false, false, true, true, true, true, true, true, true, false},
+                                {false, false, true, true, true, true, true, false, false, false, false, false, false, true, true, true, true, true, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}*/
+
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, true, true, true, true, true, true, false, false, false, false, false, true, false},
+                                {false, false, false, false, false, false, true, true, true, false, false, false, true, true, true, false, false, true, false, false},
+                                {false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, true, false, false, false},
+                                {false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, true, true, false, false, false},
+                                {false, false, false, true, false, false, false, false, false, false, false, false, false, false, true, false, false, true, false, false},
+                                {false, false, true, true, false, false, false, false, false, false, false, false, false, true, false, false, false, true, true, false},
+                                {false, false, true, true, false, false, false, false, false, false, false, false, true, false, false, false, false, true, true, false},
+                                {false, false, true, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, true, false},
+                                {false, false, true, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, true, false},
+                                {false, false, true, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, false},
+                                {false, false, true, true, false, false, false, false, true, false, false, false, false, false, false, false, false, true, true, false},
+                                {false, false, true, true, false, false, false, true, false, false, false, false, false, false, false, false, false, true, true, false},
+                                {false, false, false, true, false, false, true, false, false, false, false, false, false, false, false, false, false, true, false, false},
+                                {false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, true, false, false, false},
+                                {false, false, false, false, true, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false},
+                                {false, false, false, true, false, false, true, true, true, false, false, false, true, true, true, false, false, false, false, false},
+                                {false, false, true, false, false, false, false, true, true, true, true, true, true, true, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}
+
+                                /*{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, true, true, false, true, false, false, false, false, true, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false},
+                                {false, false, false, false, true, false, false, false, true, false, false, false, true, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, true, true, false, false, true, true, true, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, true, false, false, true, false, true, false, false, false, false},
+                                {false, false, false, false, false, false, true, false, true, true, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false},
+                                {false, false, false, false, false, false, false, true, false, false, false, true, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false},
+                                {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false}*/
+
+
+          };
 
 
 
@@ -59,15 +191,15 @@ public class GenerateFigure : MonoBehaviour
                 {
                     for (int i = 0; i < layers; i++)
                     {
-                        float z = Random.Range(30, 125);
-                        Vector3 vPos = new Vector3((1-AR)/2 + AR*( x / (float)size), y / (float)size, z);
+                        float z = Random.Range(minDistance, maxDistance);
+                        Vector3 vPos = new Vector3((1-AR)/2 + AR*( x / (float)size), (size-y-1) / (float)size, z);
                         Vector3 wPos = camera.ViewportToWorldPoint(vPos);
                         GameObject c = Instantiate<GameObject>(prefab, wPos, Quaternion.identity, parent);
                         float scale = Mathf.Tan(camera.fieldOfView * Mathf.Deg2Rad / 2) * z * 2 * 1f/size;
                         c.transform.localScale = Vector3.one * scale;
 
                         Vector3 target = new Vector3(0, 0, 0);
-                        c.transform.LookAt(camera.transform);
+                        c.transform.LookAt(camera.transform, Vector3.up);
 
                     }
                 }
