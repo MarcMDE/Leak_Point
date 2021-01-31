@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JaviScene.unity
     guid: 027a812afc322d548a880ba9ac0ef643
+  - enabled: 1
+    path: Assets/Scenes/ConsoleSceneEnd.unity
+    guid: de629beeb4660f5459148c9d800ad482
   m_configObjects: {}

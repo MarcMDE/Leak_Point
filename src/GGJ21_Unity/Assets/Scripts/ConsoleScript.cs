@@ -25,8 +25,8 @@ public class ConsoleScript : MonoBehaviour
                            "D74X log < Could not crack password >",
                            "D74X log < Loading hash list… >",
                            "D74X log < Generating human-friendly enviroment… >",
-                           "D74X log < Generating hash map… >",
-                           "D74X log < Critical task: Find password! >",
+                           "D74X log < Generating hash maps… >",
+                           "D74X log < Critical task: Find 4 password tokens! >",
                            "_"
     };
 

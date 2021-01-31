@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class finishGame : MonoBehaviour
 {
@@ -25,7 +26,8 @@ public class finishGame : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        bool winGame = true;
         for(int i = 0; i < SymbolCount; i++){
             if(!wins[i]){
                 //if( i == 0 ) Debug.Log((blockCameras[i].transform.position - playerCamera.transform.position).magnitude);
@@ -40,6 +42,15 @@ public class finishGame : MonoBehaviour
                     }
                 }
             }
+        }      
+        for(int i = 0; i < SymbolCount; i++){
+            if(!wins[i]){
+                
+                winGame = false;
+            }
+        }
+        if(winGame){
+            SceneManager.LoadScene("ConsoleSceneEnd");
         }
     }
 }
