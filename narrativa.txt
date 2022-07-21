@@ -1,0 +1,31 @@
+*Pantalla negra*
+No sé quién, no sé qué soy. No tengo recuerdos.
+Estoy sumido en una oscuridad aterradora. Ahora lo recuerdo, tengo miedo.
+¿Por qué tengo miedo?
+
+>>> Aborting induced letargy…
+>>> Enter security password
+>>> Loading data from external device D74X
+>>> ERROR – Wrong password
+>>> ERROR – Wrong password
+>>> ERROR – Wrong password
+>>> ERROR – Wrong password
+>>> ERROR – Wrong password
+>>> ERROR – Wrong password
+>>> ERROR – Wrong password
+>>> ERROR – Wrong password
+>>> ERROR – Wrong password
+>>>
+>>> D74X  log < Could not crack password >
+>>> D74X  log < Loading hash list… >
+>>> D74X  log < Generating human-friendly enviroment… >
+>>> D74X  log < Generating hash map… >
+>>> D74X  log < Critical task: Find password! >
+>>>_
+*Se inicia el juego*
+Entontrar contraseña…¿?
+
+(InGame) >>> D74X  log < Find all 6 multidimensional password characters >
+(InGame) >>> D74X  log < Providing hash map >
+
+¿Dónde estoy?¿Qué es este lugar?
